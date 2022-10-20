@@ -14,7 +14,7 @@ import { CategoriaModule } from './Categoria/categoria.module';
       password: 'root',
       database: 'we_do_care',
       entities:[Categoria],
-      synchronize: true,
+      synchronize: false,
     }),
     CategoriaModule
   ],

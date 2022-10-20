@@ -27,7 +27,7 @@ export class CategoriaService{
             return categoria;
         }
 
-        // Método Achar Pelo Nome
+        // Método Achar Pelo Modelo
         async findByModelo(modelo: string): Promise<Categoria[]> {
             return await this.categoriaRepository.find({
                 where: {
