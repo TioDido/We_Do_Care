@@ -1,4 +1,6 @@
-import { Controller, Get, HttpStatus, HttpCode, Param, ParseIntPipe, Body, Post, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, HttpStatus, HttpCode, Param, ParseIntPipe, Body, Post, Patch, Delete, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
 import { Produto } from '../entities/produtos.entitie';
 import { ProdutosService } from '../services/produtos.service';
 
@@ -30,6 +32,7 @@ export class ProdutosController{
     }
 
     //Criar um produto no banco de dados
+    @UseGuards(JwtAuthGuard)
     @Post()
     @HttpCode(HttpStatus.CREATED)
     create(@Body()produto: Produto): Promise<Produto>{
@@ -37,12 +40,14 @@ export class ProdutosController{
     }
 
     //Mandar o método de atualizar funcionar no banco de dados
+    @UseGuards(JwtAuthGuard)
     @Patch()
     @HttpCode(HttpStatus.OK)
     update(@Body()produto:Produto): Promise<Produto>{
         return this.produtosService.update(produto);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('/:id')
     @HttpCode(HttpStatus.NO_CONTENT)
     delete(@Param('id', ParseIntPipe) id: number){

@@ -10,11 +10,6 @@ export class UsuarioService{
         @InjectRepository(Usuario)
         private usuarioRepository: Repository<Usuario>
         ){}
-    
-    //Método para achar todos
-    async findAll(): Promise<Usuario[]>{
-        return await this.usuarioRepository.find();
-    }
 
     //Método achar pelo ID
     async findById(id_usuario:number): Promise<Usuario>{
@@ -29,11 +24,11 @@ export class UsuarioService{
         return usuario;
     }
 
-    //Método de achar pelo nome
-    async findByName(nome_usuario: string): Promise<Usuario[]>{
-        return await this.usuarioRepository.find({
-            where : {
-                nome_usuario: ILike(`%${nome_usuario}%`)
+    
+    async findByEmail(email_usuario: string): Promise <Usuario | undefined>{
+        return await this.usuarioRepository.findOne({
+            where: {
+                email_usuario
             }
         })
     }
@@ -51,14 +46,5 @@ export class UsuarioService{
     }
     return await this.usuarioRepository.save(usuario);
 }
-
-    //Método de deletar dados do banco de dados pelo ID
-    async delete(id_usuario:number): Promise<DeleteResult>{
-        let buscarUsuario:Usuario = await this.findById(id_usuario)
-        if (!buscarUsuario){
-            throw new HttpException('ID referente ao produto não existe.', HttpStatus.NOT_FOUND);
-        }
-        return await this.usuarioRepository.delete(id_usuario);
-    }
     
 }

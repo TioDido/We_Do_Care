@@ -3,7 +3,7 @@ import * as bcrypt from 'bcrypt'
 
 
 @Injectable()
-export class Brypt{
+export class Bcrypt{
     async criptrograrfarSenha(senha:string): Promise<string>{
         let saltos = 10
         return await bcrypt.hash(senha, saltos)

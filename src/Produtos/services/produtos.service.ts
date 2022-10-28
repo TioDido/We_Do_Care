@@ -13,7 +13,11 @@ export class ProdutosService{
     
     //Método para achar todos
     async findAll(): Promise<Produto[]>{
-        return await this.produtosRepository.find();
+        return await this.produtosRepository.find({
+            relations: {
+                categoria : true
+            }
+        });
     }
 
     //Método achar pelo ID
@@ -21,6 +25,9 @@ export class ProdutosService{
         let produtos = await this.produtosRepository.findOne({
             where:{
                 id
+            },
+            relations: {
+                categoria: true
             }
         });
         if (!produtos){
@@ -29,11 +36,14 @@ export class ProdutosService{
         return produtos;
     }
 
-    //Método de achar pelo nome
+    //Método de achar pelo nome do produto
     async findByName(nome: string): Promise<Produto[]>{
         return await this.produtosRepository.find({
             where : {
                 nome: ILike(`%${nome}%`)
+            },
+            relations : {
+                categoria : true
             }
         })
     }
