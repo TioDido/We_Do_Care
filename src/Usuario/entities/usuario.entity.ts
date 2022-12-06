@@ -79,7 +79,6 @@ export class Usuario{
     @ApiProperty()
     @IsNotEmpty()
     @MaxLength(255)
-    @MinLength(6)
     @Column({length: 255, nullable: false})
     senha_usuario: string;
 
