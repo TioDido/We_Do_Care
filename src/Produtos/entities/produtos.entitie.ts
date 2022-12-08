@@ -1,7 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger/dist/decorators/api-property.decorator";
 import { IsNotEmpty } from "class-validator";
 import { Categoria } from "../../Categoria/entities/categoria.entity";
-import { Usuario } from "../../Usuario/entities/usuario.entity";
 import { Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 import { ManyToOne } from "typeorm/decorator/relations/ManyToOne";
 
@@ -34,7 +33,13 @@ export class Produto {
     @ApiProperty()
     @IsNotEmpty()
     @Column()
-    quantidad: number;
+    quantidade: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @Column()
+    foto: string;
+
 
     @ApiProperty({type:() => Categoria})
     @ManyToOne(() => Categoria, (categoria) => categoria.produto, {

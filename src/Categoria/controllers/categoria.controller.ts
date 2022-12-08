@@ -26,7 +26,7 @@ export class CategoriaController{
 
     @Get('/search/:categoria')
     @HttpCode(HttpStatus.OK)
-    findByModelo(@Param('modelo') modelo: string): Promise<Categoria[]> {
+    findByModelo(@Param('categoria') modelo: string): Promise<Categoria[]> {
         return this.categoriaService.findByModelo(modelo);
     }
 
